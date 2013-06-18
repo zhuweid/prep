@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace prep.utility.searching
 {
@@ -13,19 +14,22 @@ namespace prep.utility.searching
 
     public IMatchA<Target> equal_to(PropertyType value)
     {
-      return new AnonymousMatch<Target>(x => value.Equals(accessor(x)));
+      return equal_to_any(value);
     }
 
     public IMatchA<Target> equal_to_any(params PropertyType[] values)
     {
-        IMatchA<Target> match = new AnonymousMatch<Target>(x => false);
-        
-        foreach (var propertyType in values)
-        {
-            match = match.or(equal_to(propertyType));
-        }
+      return new AnonymousMatch<Target>(x =>
+      {
+        var value = accessor(x);
+        var possible_values = new List<PropertyType>(values);
+        return possible_values.Contains(value);
+      });
+    }
 
-        return match;
+    public IMatchA<Target> not_equal_to(PropertyType value)
+    {
+      throw new NotImplementedException();
     }
   }
 }

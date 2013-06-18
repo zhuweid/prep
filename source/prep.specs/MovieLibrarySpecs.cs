@@ -208,7 +208,7 @@ namespace prep.specs
 
       It should_be_able_to_find_all_movies_published_by_pixar = () =>
       {
-        var criteria = Where<Movie>.has_a(x => x.production_studio).equal_to(ProductionStudio.Pixar);
+        var criteria = Match<Movie>.attribute(x => x.production_studio).equal_to(ProductionStudio.Pixar);
 
         var results = sut.all_movies().all_items_matching(criteria);
 
@@ -217,7 +217,7 @@ namespace prep.specs
 
       It should_be_able_to_find_all_movies_published_by_pixar_or_disney = () =>
       {
-        var criteria = Where<Movie>.has_a(x => x.production_studio).equal_to_any(ProductionStudio.Pixar,
+        var criteria = Match<Movie>.attribute(x => x.production_studio).equal_to_any(ProductionStudio.Pixar,
           ProductionStudio.Disney);
 
         var results = sut.all_movies().all_items_matching(criteria);
@@ -227,7 +227,8 @@ namespace prep.specs
 
       It should_be_able_to_find_all_movies_not_published_by_pixar = () =>
       {
-        var criteria = Where<Movie>.has_a(x => x.production_studio).not_equal_to(ProductionStudio.Pixar);
+        var criteria = Match<Movie>.attribute(x => x.production_studio)
+                                   .not_equal_to(ProductionStudio.Pixar);
 
         var results = sut.all_movies().all_items_matching(criteria);
 
@@ -236,6 +237,7 @@ namespace prep.specs
 
       It should_be_able_to_find_all_movies_published_after_a_certain_year = () =>
       {
+        
         var results = sut.all_movies_published_after(2004);
 
         results.ShouldContainOnly(the_ring, shrek, theres_something_about_mary);

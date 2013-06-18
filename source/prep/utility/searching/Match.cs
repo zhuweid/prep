@@ -1,8 +1,8 @@
 ﻿namespace prep.utility.searching
 {
-  public class Where<ItemToBuildSpecificationOn>
+  public class Match<ItemToBuildSpecificationOn>
   {
-    public static CriteriaFactory<ItemToBuildSpecificationOn, PropertyType> has_a<PropertyType>(
+    public static CriteriaFactory<ItemToBuildSpecificationOn, PropertyType> attribute<PropertyType>(
       PropertyAccessor<ItemToBuildSpecificationOn, PropertyType> accessor)
     {
       return new CriteriaFactory<ItemToBuildSpecificationOn, PropertyType>(accessor);

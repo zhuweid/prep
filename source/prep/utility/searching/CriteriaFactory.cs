@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace prep.utility.searching
 {
@@ -29,32 +28,7 @@ namespace prep.utility.searching
 
     public IMatchA<Target> not_equal_to(PropertyType value)
     {
-        return equal_to(value).Not();
+      return equal_to(value).not();
     }
   }
-
-    public static class MatchExtn
-    {
-        public static IMatchA<T> Not<T>(this IMatchA<T> match)
-        {
-            return new NotMatches<T>(match);
-        }
-    }
-
-
-    public class NotMatches<Item> : IMatchA<Item>
-    {
-        IMatchA<Item> match;
-
-        public NotMatches(IMatchA<Item> match)
-    {
-        this.match = match;
-    }
-
-    public bool matches(Item item)
-    {
-        return !match.matches(item);
-    }
-    }
-
 }

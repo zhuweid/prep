@@ -6,5 +6,10 @@
     {
       return new OrMatch<Item>(left_side, right_side);
     }
+
+    public static IMatchA<T> not<T>(this IMatchA<T> match)
+    {
+      return new NegatingMatch<T>(match);
+    }
   }
 }

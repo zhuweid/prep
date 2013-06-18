@@ -66,9 +66,10 @@
     <Compile Include="collections\ProductionStudio.cs" />
     <Compile Include="collections\ReadOnlySet.cs" />
     <Compile Include="utility\searching\CriteriaFactory.cs" />
+    <Compile Include="utility\searching\NegatingMatch.cs" />
     <Compile Include="utility\searching\NeverMatches.cs" />
     <Compile Include="utility\searching\PropertyAccessor.cs" />
-    <Compile Include="utility\searching\Where.cs" />
+    <Compile Include="utility\searching\Match.cs" />
     <Compile Include="utility\searching\AnonymousMatch.cs" />
     <Compile Include="utility\searching\Criteria.cs" />
     <Compile Include="utility\EnumerableExtensions.cs" />

@@ -29,7 +29,32 @@ namespace prep.utility.searching
 
     public IMatchA<Target> not_equal_to(PropertyType value)
     {
-      throw new NotImplementedException();
+        return equal_to(value).Not();
     }
   }
+
+    public static class MatchExtn
+    {
+        public static IMatchA<T> Not<T>(this IMatchA<T> match)
+        {
+            return new NotMatches<T>(match);
+        }
+    }
+
+
+    public class NotMatches<Item> : IMatchA<Item>
+    {
+        IMatchA<Item> match;
+
+        public NotMatches(IMatchA<Item> match)
+    {
+        this.match = match;
+    }
+
+    public bool matches(Item item)
+    {
+        return !match.matches(item);
+    }
+    }
+
 }

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using prep.collections;
 
 namespace prep.utility.searching
 {
@@ -30,5 +31,15 @@ namespace prep.utility.searching
     {
       return equal_to(value).not();
     }
+
+    public IMatchA<Target> greater_than(PropertyType value)
+    {
+        return new AnonymousMatch<Target>(x => accessor(x) > value);
+    }
+
+      public IMatchA<Target> between(int startValue, int endValue)
+      {
+          throw new System.NotImplementedException();
+      }
   }
 }

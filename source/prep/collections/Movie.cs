@@ -7,7 +7,7 @@ namespace prep.collections
   public class Movie : IEquatable<Movie>
   {
     public string title { get; set; }
-    public PropertyType production_studio { get; set; }
+    public ProductionStudio production_studio { get; set; }
     public Genre genre { get; set; }
     public int rating { get; set; }
     public DateTime date_published { get; set; }
@@ -26,11 +26,11 @@ namespace prep.collections
 
     public static IMatchA<Movie> is_published_by_pixar_or_disney()
     {
-      return is_published_by(PropertyType.Pixar)
-        .or(is_published_by(PropertyType.Disney));
+      return is_published_by(ProductionStudio.Pixar)
+        .or(is_published_by(ProductionStudio.Disney));
     }
 
-    public static IMatchA<Movie> is_published_by(PropertyType studio)
+    public static IMatchA<Movie> is_published_by(ProductionStudio studio)
     {
       return new IsPublishedBy(studio);
     }

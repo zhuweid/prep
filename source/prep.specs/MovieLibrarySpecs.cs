@@ -208,7 +208,7 @@ namespace prep.specs
 
       It should_be_able_to_find_all_movies_published_by_pixar = () =>
       {
-        var criteria = Where<Movie>.has_a(x => x.production_studio).equal_to<Movie,ProductionStudio>(ProductionStudio.Pixar);
+        var criteria = Where<Movie>.has_a(x => x.production_studio).equal_to(ProductionStudio.Pixar);
 
         var results = sut.all_movies().all_items_matching(criteria);
 
@@ -217,9 +217,10 @@ namespace prep.specs
 
       It should_be_able_to_find_all_movies_published_by_pixar_or_disney = () =>
       {
-        IMatchA<Movie> condition = Movie.is_published_by(PropertyType.Pixar);
-        condition = condition.or(Movie.is_published_by(PropertyType.Disney));
-        var results = sut.all_movies().all_items_matching(condition);
+        var criteria = Where<Movie>.has_a(x => x.production_studio).equal_to_any(ProductionStudio.Pixar,
+          ProductionStudio.Disney);
+
+        var results = sut.all_movies().all_items_matching(criteria);
 
         results.ShouldContainOnly(a_bugs_life, pirates_of_the_carribean, cars);
       };
@@ -346,7 +347,7 @@ namespace prep.specs
           title = "Indiana Jones And The Temple Of Doom",
           date_published = new DateTime(1982, 1, 1),
           genre = Genre.action,
-          production_studio = PropertyType.Universal,
+          production_studio = ProductionStudio.Universal,
           rating = 10
         };
         cars = new Movie
@@ -354,7 +355,7 @@ namespace prep.specs
           title = "Cars",
           date_published = new DateTime(2004, 1, 1),
           genre = Genre.kids,
-          production_studio = PropertyType.Pixar,
+          production_studio = ProductionStudio.Pixar,
           rating = 10
         };
 
@@ -363,7 +364,7 @@ namespace prep.specs
           title = "The Ring",
           date_published = new DateTime(2005, 1, 1),
           genre = Genre.horror,
-          production_studio = PropertyType.MGM,
+          production_studio = ProductionStudio.MGM,
           rating = 7
         };
         shrek = new Movie
@@ -371,7 +372,7 @@ namespace prep.specs
           title = "Shrek",
           date_published = new DateTime(2006, 5, 10),
           genre = Genre.kids,
-          production_studio = PropertyType.Dreamworks,
+          production_studio = ProductionStudio.Dreamworks,
           rating = 10
         };
         a_bugs_life = new Movie
@@ -379,7 +380,7 @@ namespace prep.specs
           title = "A Bugs Life",
           date_published = new DateTime(2000, 6, 20),
           genre = Genre.kids,
-          production_studio = PropertyType.Pixar,
+          production_studio = ProductionStudio.Pixar,
           rating = 10
         };
         theres_something_about_mary = new Movie
@@ -387,7 +388,7 @@ namespace prep.specs
           title = "There's Something About Mary",
           date_published = new DateTime(2007, 1, 1),
           genre = Genre.comedy,
-          production_studio = PropertyType.MGM,
+          production_studio = ProductionStudio.MGM,
           rating = 5
         };
         pirates_of_the_carribean = new Movie
@@ -395,7 +396,7 @@ namespace prep.specs
           title = "Pirates of the Carribean",
           date_published = new DateTime(2003, 1, 1),
           genre = Genre.action,
-          production_studio = PropertyType.Disney,
+          production_studio = ProductionStudio.Disney,
           rating = 10
         };
 

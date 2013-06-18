@@ -1,13 +1,12 @@
-﻿using prep.utility;
-using prep.utility.searching;
+﻿using prep.utility.searching;
 
 namespace prep.collections
 {
   public class IsPublishedBy : IMatchA<Movie>
   {
-    PropertyType studio;
+    ProductionStudio studio;
 
-    public IsPublishedBy(PropertyType studio)
+    public IsPublishedBy(ProductionStudio studio)
     {
       this.studio = studio;
     }
@@ -15,6 +14,6 @@ namespace prep.collections
     public bool matches(Movie movie)
     {
       return movie.production_studio == studio;
-    } 
+    }
   }
 }

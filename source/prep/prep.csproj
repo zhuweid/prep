@@ -65,7 +65,7 @@
     <Compile Include="collections\MovieLibrary.cs" />
     <Compile Include="collections\ProductionStudio.cs" />
     <Compile Include="collections\ReadOnlySet.cs" />
-    <Compile Include="utility\searching\CriteriaBuilder.cs" />
+    <Compile Include="utility\searching\CriteriaFactory.cs" />
     <Compile Include="utility\searching\PropertyAccessor.cs" />
     <Compile Include="utility\searching\Where.cs" />
     <Compile Include="utility\searching\AnonymousMatch.cs" />

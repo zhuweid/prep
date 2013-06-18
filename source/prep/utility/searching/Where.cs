@@ -1,11 +1,11 @@
 ﻿namespace prep.utility.searching
 {
-  public class Where<Target>
+  public class Where<ItemToBuildSpecificationOn>
   {
-    public static CriteriaBuilder<Target, PropertyType> has_a<PropertyType>(
-      PropertyAccessor<Target, PropertyType> accessor)
+    public static CriteriaFactory<ItemToBuildSpecificationOn, PropertyType> has_a<PropertyType>(
+      PropertyAccessor<ItemToBuildSpecificationOn, PropertyType> accessor)
     {
-      return new CriteriaBuilder<Target, PropertyType>(accessor);
+      return new CriteriaFactory<ItemToBuildSpecificationOn, PropertyType>(accessor);
     }
   }
 }

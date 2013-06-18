@@ -18,7 +18,14 @@ namespace prep.utility.searching
 
     public IMatchA<Target> equal_to_any(params PropertyType[] values)
     {
-      throw new NotImplementedException();
+        IMatchA<Target> match = new AnonymousMatch<Target>(x => false);
+        
+        foreach (var propertyType in values)
+        {
+            match = match.or(equal_to(propertyType));
+        }
+
+        return match;
     }
   }
 }

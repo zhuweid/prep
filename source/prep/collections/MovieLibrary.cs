@@ -30,14 +30,9 @@ namespace prep.collections
       return movies.Contains(movie);
     }
 
-    public bool is_published_by_pixar(Movie movie)
-    {
-      return movie.production_studio == ProductionStudio.Pixar;
-    }
-
     IEnumerable<Movie> get_all_movies_matching(MovieCriteria criteria)
     {
-      return movies.all_items_matching(movie => criteria(movie));
+      return movies.all_items_matching(new AnonymousMatch<Movie>(criteria.Invoke));
     }
     
     public IEnumerable<Movie> all_movies_published_by_pixar()

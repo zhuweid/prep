@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
+using prep.utility;
 
 namespace prep.collections
 {
@@ -15,74 +15,77 @@ namespace prep.collections
 
     public IEnumerable<Movie> all_movies()
     {
-        foreach (var movie in movies)
-        {
-            yield return movie;
-        }
+      return movies.one_at_a_time();
     }
 
     public void add(Movie movie)
     {
-        if (!movies.Contains(movie))
-        {
-            movies.Add(movie);
-        }
+      if (already_contains(movie)) return;
+
+      movies.Add(movie);
     }
 
+    bool already_contains(Movie movie)
+    {
+      return movies.Contains(movie);
+    }
+
+    public bool is_published_by_pixar(Movie movie)
+    {
+      return movie.production_studio == ProductionStudio.Pixar;
+    }
+
+    IEnumerable<Movie> get_all_movies_matching(MovieCriteria criteria)
+    {
+      return movies.all_items_matching();
+    }
+    
     public IEnumerable<Movie> all_movies_published_by_pixar()
     {
-        return GetSatisfyingMovies(m => m.production_studio == ProductionStudio.Pixar);
+      return get_all_movies_matching(movie => movie.production_studio == ProductionStudio.Pixar);
     }
-     
+
     public IEnumerable<Movie> all_movies_published_by_pixar_or_disney()
     {
-        return GetSatisfyingMovies(m => m.production_studio == ProductionStudio.Pixar || m.production_studio == ProductionStudio.Disney);
+      return
+        get_all_movies_matching(
+          m => m.production_studio == ProductionStudio.Pixar || m.production_studio == ProductionStudio.Disney);
     }
 
     public IEnumerable<Movie> all_movies_not_published_by_pixar()
-    {       
-        return GetSatisfyingMovies(m => m.production_studio != ProductionStudio.Pixar);
+    {
+      return get_all_movies_matching(m => m.production_studio != ProductionStudio.Pixar);
     }
 
     public IEnumerable<Movie> all_movies_published_after(int year)
-    {       
-        return GetSatisfyingMovies(m => m.date_published.Year > year);
+    {
+      return get_all_movies_matching(m => m.date_published.Year > year);
     }
 
     public IEnumerable<Movie> all_movies_published_between_years(int startingYear, int endingYear)
-    {        
-        return GetSatisfyingMovies(m => m.date_published.Year >= startingYear && m.date_published.Year <= endingYear);
+    {
+      return get_all_movies_matching(m => m.date_published.Year >= startingYear && m.date_published.Year <= endingYear);
     }
 
     public IEnumerable<Movie> all_kid_movies()
     {
-        return GetSatisfyingMovies(m => m.genre == Genre.kids);
+      return get_all_movies_matching(m => m.genre == Genre.kids);
     }
 
     public IEnumerable<Movie> all_action_movies()
     {
-        return GetSatisfyingMovies(m => m.genre == Genre.action);
+      return get_all_movies_matching(m => m.genre == Genre.action);
     }
 
-    private IEnumerable<Movie> GetSatisfyingMovies(Predicate<Movie> condition)
-    {
-        foreach (var movie in movies)
-        {
-            if (movie.Satisfies(condition))
-            {
-                yield return movie;
-            }
-        }
-    }
 
     public IEnumerable<Movie> sort_all_movies_by_title_descending()
     {
       var sortedList = new List<Movie>(movies);
       sortedList.Sort(new MovieComparer((m1, m2) => m2.title.CompareTo(m1.title)));
-        foreach (var movie in sortedList)
-        {
-            yield return movie;
-        }      
+      foreach (var movie in sortedList)
+      {
+        yield return movie;
+      }
     }
 
     public IEnumerable<Movie> sort_all_movies_by_title_ascending()
@@ -106,18 +109,18 @@ namespace prep.collections
     }
   }
 
-    public class MovieComparer : IComparer<Movie>
+  public class MovieComparer : IComparer<Movie>
+  {
+    readonly Func<Movie, Movie, int> _comp;
+
+    public MovieComparer(Func<Movie, Movie, int> comp)
     {
-        private readonly Func<Movie, Movie, int> _comp;
-
-        public MovieComparer(Func<Movie, Movie, int> comp)
-        {
-            _comp = comp;
-        }
-
-        public int Compare(Movie x, Movie y)
-        {
-            return _comp(x, y);
-        }
+      _comp = comp;
     }
+
+    public int Compare(Movie x, Movie y)
+    {
+      return _comp(x, y);
+    }
+  }
 }

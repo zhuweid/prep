@@ -12,16 +12,10 @@ namespace prep.collections
 
     public bool Equals(Movie other)
     {
-        if (ReferenceEquals(this, other)) return true;
+      if (ReferenceEquals(this, other)) return true;
 
-        return (this.title.Equals(other.title));
+      return (this.title.Equals(other.title));
     }
-
-      public bool Satisfies(Predicate<Movie> func)
-      {
-          return func(this);
-      }
-
 
   }
 }

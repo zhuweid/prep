@@ -71,6 +71,23 @@ namespace prep.specs
       };
     };
 
+    public class when_iterating : movie_library_concern
+    {
+      static int number_of_movies;
+
+      Establish c = () =>
+        Enumerable.Range(1, 100).each(x => movie_collection.Add(new Movie()));
+
+      Because b = () =>
+        results = sut.all_movies();
+
+      It should_iterate_over_each_item_in_the_set = () =>
+      {
+        results.First();
+      };
+
+      static IEnumerable<Movie> results;
+    }
     public class when_counting_the_number_of_movies : movie_library_concern
     {
       static int number_of_movies;

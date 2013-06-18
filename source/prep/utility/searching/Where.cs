@@ -11,8 +11,8 @@
 
   public static class AccessorExtensions
   {
-    public static IMatchA<TTarget> equal_to<TTarget, TPropertyType>(
-      this PropertyAccessor<TTarget, TPropertyType> accessor, TPropertyType value)
+    public static IMatchA<TTarget> equal_to<TTarget, TPropertyType>(this PropertyAccessor<TTarget, TPropertyType> accessor, 
+      TPropertyType value)
     {
       return new AnonymousMatch<TTarget>(x =>
       {

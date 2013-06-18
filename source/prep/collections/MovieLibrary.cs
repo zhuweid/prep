@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using prep.utility;
+using prep.utility.searching;
 
 namespace prep.collections
 {
@@ -37,19 +38,19 @@ namespace prep.collections
     
     public IEnumerable<Movie> all_movies_published_by_pixar()
     {
-      return get_all_movies_matching(movie => movie.production_studio == ProductionStudio.Pixar);
+      return get_all_movies_matching(movie => movie.production_studio == PropertyType.Pixar);
     }
 
     public IEnumerable<Movie> all_movies_published_by_pixar_or_disney()
     {
       return
         get_all_movies_matching(
-          m => m.production_studio == ProductionStudio.Pixar || m.production_studio == ProductionStudio.Disney);
+          m => m.production_studio == PropertyType.Pixar || m.production_studio == PropertyType.Disney);
     }
 
     public IEnumerable<Movie> all_movies_not_published_by_pixar()
     {
-      return get_all_movies_matching(m => m.production_studio != ProductionStudio.Pixar);
+      return get_all_movies_matching(m => m.production_studio != PropertyType.Pixar);
     }
 
     public IEnumerable<Movie> all_movies_published_after(int year)

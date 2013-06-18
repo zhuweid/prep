@@ -1,4 +1,4 @@
-﻿namespace prep.utility
+﻿namespace prep.utility.searching
 {
   public interface IMatchA<in TItem>
   {

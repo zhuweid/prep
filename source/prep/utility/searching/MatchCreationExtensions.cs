@@ -41,13 +41,4 @@ namespace prep.utility.searching
       return create_from_attribute_criteria(extension_point, new IsBetween<PropertyType>(start, end));
     }
   }
-
-    public static class MatchCreationSepcificExtensions
-    {
-        public static IMatchA<Target> greater_than<Target>(this MatchCreationExtensionPoint<Target, DateTime> extension_point, int comparison_value)
-        {
-            return extension_point.create_from_attribute_criteria(new IsGreaterThan<DateTime>(new DateTime(comparison_value, 12, 31)));
-        }
-
-    }
 }

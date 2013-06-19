@@ -21,7 +21,7 @@ namespace prep.utility.searching
 
     public static IMatchA<Target> create_from_attribute_criteria<Target,PropertyType>(this MatchCreationExtensionPoint<Target,PropertyType> extension_point, IMatchA<PropertyType> condition)
     {
-      return new AttributeMatch<Target, PropertyType>(extension_point.accessor, condition);
+        return new AttributeMatch<Target, PropertyType>(extension_point.accessor,extension_point.positiveMatch? condition: new NegatingMatch<PropertyType>(condition));
     }
 
     public static IMatchA<Target> not_equal_to<Target,PropertyType>(this MatchCreationExtensionPoint<Target,PropertyType> extension_point, PropertyType value)

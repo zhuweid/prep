@@ -14,8 +14,7 @@
     public bool matches(ItemWithAttribute item)
     {
       var value = accessor(item);
-
-      return value_specification.matches(value);
+        return value_specification.matches(value);
     }
   }
 }

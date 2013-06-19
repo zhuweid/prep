@@ -63,6 +63,7 @@
     <Compile Include="collections\ProductionStudio.cs" />
     <Compile Include="collections\ReadOnlySet.cs" />
     <Compile Include="utility\searching\AttributeMatch.cs" />
+    <Compile Include="utility\searching\IEnumerableExtensions.cs" />
     <Compile Include="utility\searching\IProvideAccessToCreatingMatchers.cs" />
     <Compile Include="utility\searching\IsBetween.cs" />
     <Compile Include="utility\searching\IsEqualToAny.cs" />

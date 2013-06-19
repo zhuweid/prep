@@ -1,26 +1,42 @@
 ﻿namespace prep.utility.searching
 {
-
-  public class MatchCreationExtensionPoint<ItemToBuildSpecificationOn, AttributeType>
+  public class MatchCreationExtensionPoint<ItemToBuildSpecificationOn, AttributeType> :
+    IProvideAccessToCreatingMatchers<ItemToBuildSpecificationOn, AttributeType>
   {
+    PropertyAccessor<ItemToBuildSpecificationOn, AttributeType> accessor;
 
-      public bool positiveMatch { get; private set; }
+    public IProvideAccessToCreatingMatchers<ItemToBuildSpecificationOn, AttributeType> not
+    {
+      get { return new NegatingMatchCreationExtensionPoint(this); }
+    }
 
-    public PropertyAccessor<ItemToBuildSpecificationOn, AttributeType> accessor;
+    public MatchCreationExtensionPoint(PropertyAccessor<ItemToBuildSpecificationOn, AttributeType> accessor
+      )
+    {
+      this.accessor = accessor;
+    }
 
-      public MatchCreationExtensionPoint<ItemToBuildSpecificationOn, AttributeType> not
+    public IMatchA<ItemToBuildSpecificationOn> create_matcher(IMatchA<AttributeType> condition)
+    {
+      return new AttributeMatch<ItemToBuildSpecificationOn, AttributeType>(this.accessor, condition);
+    }
+
+    class NegatingMatchCreationExtensionPoint :
+      IProvideAccessToCreatingMatchers<ItemToBuildSpecificationOn, AttributeType>
+    {
+      IProvideAccessToCreatingMatchers<ItemToBuildSpecificationOn, AttributeType> original_extension_point;
+
+      public NegatingMatchCreationExtensionPoint(
+        IProvideAccessToCreatingMatchers<ItemToBuildSpecificationOn, AttributeType> original_extension_point)
       {
-          get
-          {
-              return new MatchCreationExtensionPoint<ItemToBuildSpecificationOn, AttributeType>(accessor, false);
-          }
+        this.original_extension_point = original_extension_point;
       }
 
-
-      public MatchCreationExtensionPoint(PropertyAccessor<ItemToBuildSpecificationOn, AttributeType> accessor, bool positiveMatch = true)
-        {
-          this.accessor = accessor;
-          this.positiveMatch = positiveMatch;
-        }
+      public IMatchA<ItemToBuildSpecificationOn> create_matcher(IMatchA<AttributeType> condition)
+      {
+        var matcher = original_extension_point.create_matcher(condition);
+        return matcher.not();
+      }
+    }
   }
 }

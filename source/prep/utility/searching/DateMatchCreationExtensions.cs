@@ -5,11 +5,11 @@ namespace prep.utility.searching
   public static class DateMatchCreationExtensions
   {
     public static IMatchA<Target> greater_than<Target>(
-      this MatchCreationExtensionPoint<Target, DateTime> extension_point, int year)
+      this IProvideAccessToCreatingMatchers<Target, DateTime> extension_point, int year)
     {
       var date_criteria = Match<DateTime>.attribute(x => x.Year).greater_than(year);
 
-      return extension_point.create_from_attribute_criteria(date_criteria);
+      return extension_point.create_matcher(date_criteria);
     }
 
   }

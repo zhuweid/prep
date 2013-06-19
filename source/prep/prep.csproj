@@ -62,8 +62,11 @@
     <Compile Include="collections\MovieLibrary.cs" />
     <Compile Include="collections\ProductionStudio.cs" />
     <Compile Include="collections\ReadOnlySet.cs" />
-    <Compile Include="utility\searching\AnonymousMatchFactory.cs" />
+    <Compile Include="utility\searching\AttributeMatch.cs" />
     <Compile Include="utility\searching\ComparableMatchFactory.cs" />
+    <Compile Include="utility\searching\IsBetween.cs" />
+    <Compile Include="utility\searching\IsEqualToAny.cs" />
+    <Compile Include="utility\searching\IsGreaterThan.cs" />
     <Compile Include="utility\searching\MatchFactory.cs" />
     <Compile Include="utility\searching\IBuildMatchers.cs" />
     <Compile Include="utility\searching\NegatingMatch.cs" />

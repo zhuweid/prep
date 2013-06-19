@@ -1,16 +1,12 @@
-﻿using System.Collections.Generic;
-
-namespace prep.utility.searching
+﻿namespace prep.utility.searching
 {
   public class MatchFactory<Target, PropertyType> : IBuildMatchers<Target, PropertyType>
   {
     PropertyAccessor<Target, PropertyType> accessor;
 
-      private readonly IAnonymousMatchFactory anonymousMatchFactory;
-    public MatchFactory(PropertyAccessor<Target, PropertyType> accessor, IAnonymousMatchFactory anonymousMatchFactory)
+    public MatchFactory(PropertyAccessor<Target, PropertyType> accessor)
     {
       this.accessor = accessor;
-        this.anonymousMatchFactory = anonymousMatchFactory;
     }
 
     public IMatchA<Target> equal_to(PropertyType value)
@@ -18,14 +14,19 @@ namespace prep.utility.searching
       return equal_to_any(value);
     }
 
+    public IMatchA<Target> create_from_condition(Criteria<Target> condition)
+    {
+      return new AnonymousMatch<Target>(condition);
+    }
+
     public IMatchA<Target> equal_to_any(params PropertyType[] values)
     {
-        return anonymousMatchFactory.Create<Target>(x =>
-      {
-        var value = accessor(x);
-        var possible_values = new List<PropertyType>(values);
-        return possible_values.Contains(value);
-      });
+      return create_from_attribute_criteria(new IsEqualToAny<PropertyType>(values));
+    }
+
+    public IMatchA<Target> create_from_attribute_criteria(IMatchA<PropertyType> condition)
+    {
+      return new AttributeMatch<Target, PropertyType>(accessor, condition);
     }
 
     public IMatchA<Target> not_equal_to(PropertyType value)

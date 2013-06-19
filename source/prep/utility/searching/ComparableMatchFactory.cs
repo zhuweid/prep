@@ -6,38 +6,31 @@ namespace prep.utility.searching
     : IBuildMatchers<ItemToBuildSpecificationOn, PropertyType>
     where PropertyType : IComparable<PropertyType>
   {
-    PropertyAccessor<ItemToBuildSpecificationOn, PropertyType> accessor;
     IBuildMatchers<ItemToBuildSpecificationOn, PropertyType> criteria_factory;
-    private readonly IAnonymousMatchFactory anonymousMatchFactory;
-    public ComparableMatchFactory(PropertyAccessor<ItemToBuildSpecificationOn, PropertyType> accessor,
-                                  IBuildMatchers<ItemToBuildSpecificationOn, PropertyType> criteria_factory,
-                                  IAnonymousMatchFactory anonymousMatchFactory)
+
+    public ComparableMatchFactory(IBuildMatchers<ItemToBuildSpecificationOn, PropertyType> criteria_factory)
     {
-      this.accessor = accessor;
       this.criteria_factory = criteria_factory;
-        this.anonymousMatchFactory = anonymousMatchFactory;
     }
 
+    public IMatchA<ItemToBuildSpecificationOn> create_from_condition(Criteria<ItemToBuildSpecificationOn> condition)
+    {
+      return criteria_factory.create_from_condition(condition);
+    }
+
+    public IMatchA<ItemToBuildSpecificationOn> create_from_attribute_criteria(IMatchA<PropertyType> condition)
+    {
+      return criteria_factory.create_from_attribute_criteria(condition);
+    }
 
     public IMatchA<ItemToBuildSpecificationOn> greater_than(PropertyType comparison_value)
     {
-        return anonymousMatchFactory.Create<ItemToBuildSpecificationOn>(x =>
-      {
-        var value = accessor(x);
-        var result = value.CompareTo(comparison_value);
-        return result > 0;
-      });
+      return create_from_attribute_criteria(new IsGreaterThan<PropertyType>(comparison_value));
     }
 
     public IMatchA<ItemToBuildSpecificationOn> between(PropertyType start, PropertyType end)
     {
-        return anonymousMatchFactory.Create<ItemToBuildSpecificationOn>(x =>
-      {
-        var value = accessor(x);
-
-        return value.CompareTo(start) >= 0 &&
-          value.CompareTo(end) <= 0;
-      });
+      return create_from_attribute_criteria(new IsBetween<PropertyType>(start, end));
     }
 
     public IMatchA<ItemToBuildSpecificationOn> equal_to(PropertyType value)

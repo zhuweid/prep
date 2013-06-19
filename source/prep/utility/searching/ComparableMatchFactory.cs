@@ -1,21 +1,21 @@
 ﻿using System;
-using prep.collections;
 
 namespace prep.utility.searching
 {
-  public class ComparableCriteriaFactory<ItemToBuildSpecificationOn, PropertyType> 
-      : ICriteriaFactory<ItemToBuildSpecificationOn, PropertyType>,
-      IComparableCriteriaFactory<ItemToBuildSpecificationOn, PropertyType> where PropertyType : IComparable<PropertyType>
+  public class ComparableMatchFactory<ItemToBuildSpecificationOn, PropertyType>
+    : IBuildMatchers<ItemToBuildSpecificationOn, PropertyType>
+    where PropertyType : IComparable<PropertyType>
   {
     PropertyAccessor<ItemToBuildSpecificationOn, PropertyType> accessor;
-      private ICriteriaFactory<ItemToBuildSpecificationOn, PropertyType> criteriaFactory;
+    IBuildMatchers<ItemToBuildSpecificationOn, PropertyType> criteria_factory;
 
-      public ComparableCriteriaFactory(PropertyAccessor<ItemToBuildSpecificationOn, PropertyType> accessor,
-            ICriteriaFactory<ItemToBuildSpecificationOn, PropertyType> criteriaFactory)
+    public ComparableMatchFactory(PropertyAccessor<ItemToBuildSpecificationOn, PropertyType> accessor,
+                                  IBuildMatchers<ItemToBuildSpecificationOn, PropertyType> criteria_factory)
     {
       this.accessor = accessor;
-        this.criteriaFactory = criteriaFactory;
+      this.criteria_factory = criteria_factory;
     }
+
 
     public IMatchA<ItemToBuildSpecificationOn> greater_than(PropertyType comparison_value)
     {
@@ -40,17 +40,17 @@ namespace prep.utility.searching
 
     public IMatchA<ItemToBuildSpecificationOn> equal_to(PropertyType value)
     {
-        return criteriaFactory.equal_to(value);
+      return criteria_factory.equal_to(value);
     }
 
     public IMatchA<ItemToBuildSpecificationOn> equal_to_any(params PropertyType[] values)
     {
-        return criteriaFactory.equal_to_any(values);
+      return criteria_factory.equal_to_any(values);
     }
 
     public IMatchA<ItemToBuildSpecificationOn> not_equal_to(PropertyType value)
     {
-        return criteriaFactory.not_equal_to(value);
+      return criteria_factory.not_equal_to(value);
     }
   }
 }

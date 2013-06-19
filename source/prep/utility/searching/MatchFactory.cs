@@ -2,11 +2,11 @@
 
 namespace prep.utility.searching
 {
-  public class CriteriaFactory<Target, PropertyType> : ICriteriaFactory<Target, PropertyType>
+  public class MatchFactory<Target, PropertyType> : IBuildMatchers<Target, PropertyType>
   {
     PropertyAccessor<Target, PropertyType> accessor;
 
-    public CriteriaFactory(PropertyAccessor<Target, PropertyType> accessor)
+    public MatchFactory(PropertyAccessor<Target, PropertyType> accessor)
     {
       this.accessor = accessor;
     }

@@ -90,6 +90,7 @@ namespace prep.specs
 
       static IEnumerable<Movie> results;
     }
+
     public class when_counting_the_number_of_movies : movie_library_concern
     {
       static int number_of_movies;
@@ -218,7 +219,7 @@ namespace prep.specs
       It should_be_able_to_find_all_movies_published_by_pixar_or_disney = () =>
       {
         var criteria = Match<Movie>.attribute(x => x.production_studio).equal_to_any(ProductionStudio.Pixar,
-          ProductionStudio.Disney);
+                                                                                     ProductionStudio.Disney);
 
         var results = sut.all_movies().all_items_matching(criteria);
 
@@ -236,20 +237,19 @@ namespace prep.specs
       };
 
       It should_be_able_to_find_all_movies_published_after_a_certain_year = () =>
-          {
+      {
+        var criteria = Match<Movie>.comparable_attribute(x => x.date_published.Year)
+                                   .greater_than(2004);
 
-              var criteria = Match<Movie>.attribute(x => x.date_published.Year)
-                                         .greater_than(2004);
+        var results = sut.all_movies().all_items_matching(criteria);
 
-              var results = sut.all_movies().all_items_matching(criteria);
-
-            results.ShouldContainOnly(the_ring, shrek, theres_something_about_mary);
+        results.ShouldContainOnly(the_ring, shrek, theres_something_about_mary);
       };
 
       It should_be_able_to_find_all_movies_published_between_a_certain_range_of_years = () =>
-      {        
-        var criteria = Match<Movie>.attribute(x => x.date_published.Year)
-                                       .between(1982, 2003);
+      {
+        var criteria = Match<Movie>.comparable_attribute(x => x.date_published.Year)
+                                   .between(1982, 2003);
 
         var results = sut.all_movies().all_items_matching(criteria);
 

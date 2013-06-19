@@ -1,4 +1,6 @@
-﻿namespace prep.utility.searching
+﻿using System;
+
+namespace prep.utility.searching
 {
   public class Match<ItemToBuildSpecificationOn>
   {
@@ -6,6 +8,12 @@
       PropertyAccessor<ItemToBuildSpecificationOn, PropertyType> accessor)
     {
       return new CriteriaFactory<ItemToBuildSpecificationOn, PropertyType>(accessor);
+    }
+
+    public static ComparableCriteriaFactory<ItemToBuildSpecificationOn,PropertyType> comparable_attribute<PropertyType>(PropertyAccessor<ItemToBuildSpecificationOn, PropertyType> accessor ) 
+      where PropertyType : IComparable<PropertyType>
+    {
+      return new ComparableCriteriaFactory<ItemToBuildSpecificationOn,PropertyType>(accessor);
     }
   }
 }

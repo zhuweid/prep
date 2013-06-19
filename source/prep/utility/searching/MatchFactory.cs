@@ -6,9 +6,11 @@ namespace prep.utility.searching
   {
     PropertyAccessor<Target, PropertyType> accessor;
 
-    public MatchFactory(PropertyAccessor<Target, PropertyType> accessor)
+      private readonly IAnonymousMatchFactory anonymousMatchFactory;
+    public MatchFactory(PropertyAccessor<Target, PropertyType> accessor, IAnonymousMatchFactory anonymousMatchFactory)
     {
       this.accessor = accessor;
+        this.anonymousMatchFactory = anonymousMatchFactory;
     }
 
     public IMatchA<Target> equal_to(PropertyType value)
@@ -18,7 +20,7 @@ namespace prep.utility.searching
 
     public IMatchA<Target> equal_to_any(params PropertyType[] values)
     {
-      return new AnonymousMatch<Target>(x =>
+        return anonymousMatchFactory.Create<Target>(x =>
       {
         var value = accessor(x);
         var possible_values = new List<PropertyType>(values);

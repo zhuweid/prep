@@ -7,10 +7,10 @@ namespace prep.utility.searching
     AttributeType start;
     AttributeType end;
 
-    public IsBetween(AttributeType end, AttributeType start)
+    public IsBetween(AttributeType start, AttributeType end)
     {
-      this.end = end;
       this.start = start;
+      this.end = end;
     }
 
     public bool matches(AttributeType item)

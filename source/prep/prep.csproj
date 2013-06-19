@@ -63,12 +63,11 @@
     <Compile Include="collections\ProductionStudio.cs" />
     <Compile Include="collections\ReadOnlySet.cs" />
     <Compile Include="utility\searching\AttributeMatch.cs" />
-    <Compile Include="utility\searching\ComparableMatchFactory.cs" />
     <Compile Include="utility\searching\IsBetween.cs" />
     <Compile Include="utility\searching\IsEqualToAny.cs" />
     <Compile Include="utility\searching\IsGreaterThan.cs" />
-    <Compile Include="utility\searching\MatchFactory.cs" />
-    <Compile Include="utility\searching\IBuildMatchers.cs" />
+    <Compile Include="utility\searching\MatchCreationExtensionPoint.cs" />
+    <Compile Include="utility\searching\MatchCreationExtensions.cs" />
     <Compile Include="utility\searching\NegatingMatch.cs" />
     <Compile Include="utility\searching\NeverMatches.cs" />
     <Compile Include="utility\searching\PropertyAccessor.cs" />

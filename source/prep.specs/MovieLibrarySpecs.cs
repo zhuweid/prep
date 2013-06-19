@@ -236,6 +236,16 @@ namespace prep.specs
         results.ShouldNotContain(cars, a_bugs_life);
       };
 
+      //It should_be_able_to_find_all_movies_published_of_a_certain_year = () =>
+      //{
+      //    var criteria = Match<Movie>.comparable_attribute(x => x.date_published.Year)
+      //                               .equal_to(2004);
+
+      //    var results = sut.all_movies().all_items_matching(criteria);
+
+      //    results.ShouldContainOnly(cars);
+      //};
+
       It should_be_able_to_find_all_movies_published_after_a_certain_year = () =>
       {
         var criteria = Match<Movie>.comparable_attribute(x => x.date_published.Year)

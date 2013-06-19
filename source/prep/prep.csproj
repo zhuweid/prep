@@ -67,6 +67,8 @@
     <Compile Include="collections\ReadOnlySet.cs" />
     <Compile Include="utility\searching\ComparableCriteriaFactory.cs" />
     <Compile Include="utility\searching\CriteriaFactory.cs" />
+    <Compile Include="utility\searching\IComparableCriteriaFactory.cs" />
+    <Compile Include="utility\searching\ICriteriaFactory.cs" />
     <Compile Include="utility\searching\NegatingMatch.cs" />
     <Compile Include="utility\searching\NeverMatches.cs" />
     <Compile Include="utility\searching\PropertyAccessor.cs" />

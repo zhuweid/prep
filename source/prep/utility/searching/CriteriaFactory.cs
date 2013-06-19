@@ -2,7 +2,7 @@
 
 namespace prep.utility.searching
 {
-  public class CriteriaFactory<Target, PropertyType>
+  public class CriteriaFactory<Target, PropertyType> : ICriteriaFactory<Target, PropertyType>
   {
     PropertyAccessor<Target, PropertyType> accessor;
 

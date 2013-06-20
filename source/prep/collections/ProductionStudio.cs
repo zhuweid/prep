@@ -9,4 +9,12 @@ namespace prep.collections
     public static readonly ProductionStudio Disney = new ProductionStudio();
     public static readonly ProductionStudio Dreamworks = new ProductionStudio();
   }
+
+    public static class ProductionStudioExtensions
+    {
+        public static int rating(this ProductionStudio studio)
+        {
+            return 0;
+        }
+    }
 }

@@ -214,6 +214,7 @@ namespace prep.specs
         results.ShouldContainOnly(cars, a_bugs_life);
       };
 
+        /*
       It should_be_able_to_find_all_movies_published_by_pixar_or_disney = () =>
       {
         var results = sut.all_movies().where(x => x.production_studio).equal_to_any(ProductionStudio.Pixar,
@@ -232,6 +233,7 @@ namespace prep.specs
 
         results.ShouldNotContain(cars, a_bugs_life);
       };
+        */
 
       //It should_be_able_to_find_all_movies_published_of_a_certain_year = () =>
       //{
@@ -291,7 +293,8 @@ namespace prep.specs
 
       It should_be_able_to_sort_all_movies_by_title_descending = () =>
       {
-        var results = sut.sort_all_movies_by_title_descending();
+        //var results = sut.sort_all_movies_by_title_descending();
+          var results = sut.all_movies().sort_by_decending(x => x.title);
 
         results.ShouldContainOnlyInOrder(theres_something_about_mary, the_ring, shrek,
                                          pirates_of_the_carribean, indiana_jones_and_the_temple_of_doom,
@@ -300,7 +303,8 @@ namespace prep.specs
 
       It should_be_able_to_sort_all_movies_by_title_ascending = () =>
       {
-        var results = sut.sort_all_movies_by_title_ascending();
+        //var results = sut.sort_all_movies_by_title_ascending();
+          var results = sut.all_movies().sort_by(x => x.title);
 
         results.ShouldContainOnlyInOrder(a_bugs_life, cars, indiana_jones_and_the_temple_of_doom,
                                          pirates_of_the_carribean, shrek, the_ring,
@@ -309,7 +313,8 @@ namespace prep.specs
 
       It should_be_able_to_sort_all_movies_by_date_published_descending = () =>
       {
-        var results = sut.sort_all_movies_by_date_published_descending();
+        //var results = sut.sort_all_movies_by_date_published_descending();
+          var results = sut.all_movies().sort_by_decending(x => x.date_published);
 
         results.ShouldContainOnlyInOrder(theres_something_about_mary, shrek, the_ring, cars,
                                          pirates_of_the_carribean, a_bugs_life,
@@ -318,7 +323,8 @@ namespace prep.specs
 
       It should_be_able_to_sort_all_movies_by_date_published_ascending = () =>
       {
-        var results = sut.sort_all_movies_by_date_published_ascending();
+        //var results = sut.sort_all_movies_by_date_published_ascending();
+          var results = sut.all_movies().sort_by(x => x.date_published);
 
         results.ShouldContainOnlyInOrder(indiana_jones_and_the_temple_of_doom, a_bugs_life,
                                          pirates_of_the_carribean, cars, the_ring, shrek,
@@ -333,7 +339,9 @@ namespace prep.specs
         //Dreamworks
         //Universal
         //Disney
-        var results = sut.sort_all_movies_by_movie_studio_and_year_published();
+        //var results = sut.sort_all_movies_by_movie_studio_and_year_published();
+          var results = sut.all_movies().sort_by(x => x.production_studio.rating()).then_by(x => x.date_published);
+
         /* should return a set of results 
                  * in the collection sorted by the rating of the production studio (not the movie rating) and year published. for this exercise you need to take the studio ratings
                  * into effect, which means that you first have to sort by movie studio (taking the ranking into account) and then by the

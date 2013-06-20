@@ -9,6 +9,30 @@ namespace prep.utility.searching
     {
       return new CollectionFilteringExtensionPoint<Target, AttributeType>(movies, accessor);
     }
+
+    public static IEnumerable<Target> sort_by<Target, AttributeType>
+        (this IEnumerable<Target> movies, PropertyAccessor<Target, AttributeType> accessor)
+    {
+        return new SortingExtensionPoint<Target, AttributeType>(movies, accessor).sort().ToResult();
+    }
+
+    public static IEnumerable<Target> sort_by_decending<Target, AttributeType>
+        (this IEnumerable<Target> movies, PropertyAccessor<Target, AttributeType> accessor)
+    {
+        return new SortingExtensionPoint<Target, AttributeType>(movies, accessor).sort().decending().ToResult();
+    }
+
+    public static IEnumerable<Target> then_by<Target, AttributeType>
+      (this IEnumerable<Target> movies, PropertyAccessor<Target, AttributeType> accessor)
+    {
+        return new SortingExtensionPoint<Target, AttributeType>(movies, accessor).thenby().ToResult();
+    }
+
+    public static IEnumerable<Target> then_by_decending<Target, AttributeType>
+    (this IEnumerable<Target> movies, PropertyAccessor<Target, AttributeType> accessor)
+    {
+        return new SortingExtensionPoint<Target, AttributeType>(movies, accessor).thenby().decending().ToResult();
+    }
   }
 
   public static class CollectionFilteringExtensions
@@ -39,4 +63,42 @@ namespace prep.utility.searching
       return items.all_items_matching(criteria);
     }
   }
+
+
+    public class SortingExtensionPoint<Target, AttributeType>
+    {
+        public readonly IEnumerable<Target> items;
+        public readonly PropertyAccessor<Target, AttributeType> accessor;
+
+
+        public SortingExtensionPoint(IEnumerable<Target> items, PropertyAccessor<Target, AttributeType> accessor)
+        {
+          this.items = items;
+          this.accessor = accessor;
+        }
+
+        public SortingExtensionPoint<Target, AttributeType> sort()
+        {
+
+            return this;
+        }
+
+        public SortingExtensionPoint<Target, AttributeType> thenby()
+        {
+
+            return this;
+        }
+
+        public SortingExtensionPoint<Target, AttributeType> decending()
+        {
+            
+        }
+
+        public IEnumerable<Target> ToResult()
+        {
+            return null;
+        }
+    }
+
+
 }

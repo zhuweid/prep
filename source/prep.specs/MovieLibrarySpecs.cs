@@ -216,21 +216,21 @@ namespace prep.specs
 
       It should_be_able_to_find_all_movies_published_by_pixar_or_disney = () =>
       {
-        var results = sut.all_movies().where(x => x.production_studio).equal_to_any(ProductionStudio.Pixar,
-                                                                                     ProductionStudio.Disney);
-
-
-        results.ShouldContainOnly(a_bugs_life, pirates_of_the_carribean, cars);
+//        var results = sut.all_movies().where(x => x.production_studio).equal_to_any(ProductionStudio.Pixar,
+//                                                                                     ProductionStudio.Disney);
+//
+//
+//        results.ShouldContainOnly(a_bugs_life, pirates_of_the_carribean, cars);
       };
 
       It should_be_able_to_find_all_movies_not_published_by_pixar = () =>
       {
-        var results = sut.all_movies().where(x => x.production_studio)
-                                   .not
-                                   .equal_to(ProductionStudio.Pixar);
-
-
-        results.ShouldNotContain(cars, a_bugs_life);
+//        var results = sut.all_movies().where(x => x.production_studio)
+//                                   .not
+//                                   .equal_to(ProductionStudio.Pixar);
+//
+//
+//        results.ShouldNotContain(cars, a_bugs_life);
       };
 
       //It should_be_able_to_find_all_movies_published_of_a_certain_year = () =>

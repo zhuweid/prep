@@ -32,7 +32,7 @@ namespace prep.calculator
 
     public void shut_off()
     {
-        if (!Thread.CurrentPrincipal.IsInRole("dummy rolw"))
+        if (!Thread.CurrentPrincipal.IsInRole("dummy role"))
             throw new SecurityException();
     }
   }

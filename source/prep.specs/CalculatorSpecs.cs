@@ -25,9 +25,9 @@ namespace prep.specs
       {
         connection = depends.on<IDbConnection>();
         command = fake.an<IDbCommand>();
-
+        
         connection.setup(x => x.CreateCommand()).Return(command);
-
+          
       };
 
       Because b = () =>

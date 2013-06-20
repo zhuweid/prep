@@ -8,17 +8,21 @@ namespace prep.specs
 {
     public class EnumerableExtensionsSpecs
     {
-        public class when_all_items_are_matching
+        Establish e = () =>
         {
-            private Establish c = () =>
-                                      {
-                                          movie1 = new Movie {title = "prasad"};
-                                          movie2 = new Movie {title = "steve"};
-                                          movies = new List<Movie>
+            movie1 = new Movie { title = "prasad" };
+            movie2 = new Movie { title = "steve" };
+            movies = new List<Movie>
                                                        {
                                                            movie1,
                                                            movie2
                                                        };
+        };
+
+        public class when_all_items_are_matching
+        {
+            private Establish c = () =>
+                                      {
                                           match = new AnonymousMatch<Movie>(x => true);
                                       };
 
@@ -28,25 +32,13 @@ namespace prep.specs
             private It should_return_all_matching_movies = () =>
                                                            result.ShouldContain(movie1, movie2);
             
-            static List<Movie> movies;
-            static Movie movie1;
-            static Movie movie2;
             static IEnumerable<Movie> result; 
-            static IMatchA<Movie> match;
-
         }
 
         public class when_no_item_is_matching
         {
             private Establish c = () =>
             {
-                movie1 = new Movie { title = "prasad" };
-                movie2 = new Movie { title = "steve" };
-                movies = new List<Movie>
-                                                       {
-                                                           movie1,
-                                                           movie2
-                                                       };
                 match = new AnonymousMatch<Movie>(x => false);
             };
 
@@ -56,12 +48,12 @@ namespace prep.specs
             private It should_return_all_matching_movies = () =>
                                                            result.ShouldNotContain(movie1, movie2);
 
-            static List<Movie> movies;
-            static Movie movie1;
-            static Movie movie2;
             static IEnumerable<Movie> result;
-            static IMatchA<Movie> match;
-
         }
+
+        static Movie movie1;
+        static Movie movie2;
+        static List<Movie> movies;
+        static IMatchA<Movie> match;
     }
 }

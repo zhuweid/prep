@@ -5,11 +5,11 @@ namespace prep.calculator
 {
     public class Calculator
     {
-        private readonly IDbConnection _connection;
+        IDbConnection connection;
 
         public Calculator(IDbConnection connection)
         {
-            _connection = connection;
+            this.connection = connection;
         }
 
         public int add(int i, int i1)
@@ -17,7 +17,7 @@ namespace prep.calculator
             if (i * i1 < 0)
                 throw new ArgumentException();
 
-            _connection.Open();
+            connection.Open();
 
             return i + i1;
         }

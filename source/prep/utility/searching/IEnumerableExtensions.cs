@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 
 namespace prep.utility.searching
 {
@@ -10,28 +11,28 @@ namespace prep.utility.searching
       return new CollectionFilteringExtensionPoint<Target, AttributeType>(movies, accessor);
     }
 
-    public static IEnumerable<Target> sort_by<Target, AttributeType>
+    public static IOrderedEnumerable<Target> sort_by<Target, AttributeType>
         (this IEnumerable<Target> movies, PropertyAccessor<Target, AttributeType> accessor)
     {
         return new SortingExtensionPoint<Target, AttributeType>(movies, accessor).sort().ToResult();
     }
 
-    public static IEnumerable<Target> sort_by_decending<Target, AttributeType>
+    public static IOrderedEnumerable<Target> sort_by_decending<Target, AttributeType>
         (this IEnumerable<Target> movies, PropertyAccessor<Target, AttributeType> accessor)
     {
         return new SortingExtensionPoint<Target, AttributeType>(movies, accessor).sort().decending().ToResult();
     }
 
     public static IEnumerable<Target> then_by<Target, AttributeType>
-      (this IEnumerable<Target> movies, PropertyAccessor<Target, AttributeType> accessor)
+      (this IOrderedEnumerable<Target> movies, PropertyAccessor<Target, AttributeType> accessor)
     {
-        return new SortingExtensionPoint<Target, AttributeType>(movies, accessor).thenby().ToResult();
+        return new SortingExtensionPoint<Target, AttributeType>(movies, accessor, movies.sortFactors).thenby().ToResult();
     }
 
     public static IEnumerable<Target> then_by_decending<Target, AttributeType>
-    (this IEnumerable<Target> movies, PropertyAccessor<Target, AttributeType> accessor)
+    (this IOrderedEnumerable<Target> movies, PropertyAccessor<Target, AttributeType> accessor)
     {
-        return new SortingExtensionPoint<Target, AttributeType>(movies, accessor).thenby().decending().ToResult();
+        return new SortingExtensionPoint<Target, AttributeType>(movies, accessor, movies.sortFactors).thenby().decending().ToResult();
     }
   }
 
@@ -64,6 +65,16 @@ namespace prep.utility.searching
     }
   }
 
+    public class SortFactor
+    {
+        public string attributeName { get; set; }
+        public bool isDencending { get; set; }
+    }
+
+    public interface IOrderedEnumerable<out Target> : IEnumerable<Target>
+    {
+        List<SortFactor> sortFactors { get; }
+    }
 
     public class SortingExtensionPoint<Target, AttributeType>
     {
@@ -75,6 +86,12 @@ namespace prep.utility.searching
         {
           this.items = items;
           this.accessor = accessor;
+        }
+
+        public SortingExtensionPoint(IEnumerable<Target> items, PropertyAccessor<Target, AttributeType> accessor, List<SortFactor> existingFactors)
+        {
+            this.items = items;
+            this.accessor = accessor;
         }
 
         public SortingExtensionPoint<Target, AttributeType> sort()
@@ -94,7 +111,7 @@ namespace prep.utility.searching
             
         }
 
-        public IEnumerable<Target> ToResult()
+        public IOrderedEnumerable<Target> ToResult()
         {
             return null;
         }

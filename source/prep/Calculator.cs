@@ -4,7 +4,9 @@
   {
     public static int add(int first, int second)
     {
-      throw new System.NotImplementedException();
+      if(first  * second < 0)
+          throw new ArgumentException();
+      return first + second;
     }
   }
 }

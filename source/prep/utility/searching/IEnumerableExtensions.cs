@@ -23,13 +23,13 @@ namespace prep.utility.searching
         return new SortingExtensionPoint<Target, AttributeType>(movies, accessor).sort().decending().ToResult();
     }
 
-    public static IEnumerable<Target> then_by<Target, AttributeType>
+    public static IOrderedEnumerable<Target> then_by<Target, AttributeType>
       (this IOrderedEnumerable<Target> movies, PropertyAccessor<Target, AttributeType> accessor)
     {
         return new SortingExtensionPoint<Target, AttributeType>(movies, accessor, movies.sortFactors).thenby().ToResult();
     }
 
-    public static IEnumerable<Target> then_by_decending<Target, AttributeType>
+    public static IOrderedEnumerable<Target> then_by_decending<Target, AttributeType>
     (this IOrderedEnumerable<Target> movies, PropertyAccessor<Target, AttributeType> accessor)
     {
         return new SortingExtensionPoint<Target, AttributeType>(movies, accessor, movies.sortFactors).thenby().decending().ToResult();
